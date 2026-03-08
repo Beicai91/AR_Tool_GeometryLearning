@@ -1,3 +1,32 @@
+This is a prototype application developed as part of a master’s thesis (MALTT) that explores the use of marker-based augmented reality for interactive geometry construction.
+
+The system maps physically manipulated markers to geometric point and updates geometric constructions (segment, 2D figures) in real time based on user actions. The project focuses on robust marker detection, real-time interaction and geometric computation within an educational context. 
+
+Dev features:
+Marker-based detection and tracking: Reliable detection of QR-assisted tangible markers under variable lighting conditions
+Tangible input mapped to geometric point entities: physical markers are mapped to point entities used in geometric computation
+Real-time geometric construction following marker movement: geometric segments and figures are dynamically updated as markers are manipulated
+Real-time interaction feedback: geometric actions are validated at runtime, producing distinct visual outcomes for valid and invalid segment prolongation
+Conditional visualisation of invisible geometric entities: projection of underlying geometric line for segment prolongation triggered by hint button
+Phase-based interaction flow: exploration mode followed by task-oriented mode
+
+Technical notes:
+Robust marker detection was a central challenge due to the limitation of HP Sprout’s hardware, environmental noises (light, hand movements etc.) and projected graphics. 
+
+Detection approach
+The initial shape/color-based marker detection proved unstable in uncontrolled environments. To improve robustness, the system was redesigned to use QR-assisted markers, providing reliable identification and persistent marker IDs across frames. 
+
+Projection offset handling
+Each QR code is paired with a circular marker that serves as the geometric anchor. The QR code provides detection, identification, and orientation, while coordinates are remapped to the circular marker using a rotation-aware offset, ensuring that projected geometry connects only between anchor markers and does not overlap the QR codes.
+
+Temporal filtering of marker states
+The system maintains two separate data structures:
+a raw marker set, updated every frame from the detection layer
+a tracked marker set, used b all geometric computations
+
+Tracked markers are only removed after being absent for several consecutive frames. This temporal filtering reduces visual flickering and prevents transient detection noise from affecting downstream geometric operations. 
+This separation allows the system to remain responsive while maintaining stable interaction behaviour under noisy input conditions.
+
 Compile CML: 
 javac -encoding UTF-8 -d bin -cp "lib/*;C:/Program Files/Processing/app/resources/core/library/core-4.4.6.jar;C:/Users/tecfa/OneDrive/Documents/Processing/libraries/opencv_processing/library/*;C:/Users/tecfa/OneDrive/Documents/Processing/libraries/video/library/*" src/app/CamCapture.java src/app/Main.java src/app/MarkerManager.java src/app/UtilsUI.java src/app/Marker.java src/app/MarkerButton.java src/app/ProjectorWindow.java src/app/LiveSegment.java src/app/SegmentManager.java src/app/Calibration.java src/app/TrackedMarker
 src/app/TrackedMarker.java src/app/Triangle.java src/app/TriangleManager.java src/app/AppState.java src/app/StaticSegment.java
