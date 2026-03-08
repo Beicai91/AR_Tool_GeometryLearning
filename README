@@ -1,0 +1,6 @@
+Compile CML: 
+javac -encoding UTF-8 -d bin -cp "lib/*;C:/Program Files/Processing/app/resources/core/library/core-4.4.6.jar;C:/Users/tecfa/OneDrive/Documents/Processing/libraries/opencv_processing/library/*;C:/Users/tecfa/OneDrive/Documents/Processing/libraries/video/library/*" src/app/CamCapture.java src/app/Main.java src/app/MarkerManager.java src/app/UtilsUI.java src/app/Marker.java src/app/MarkerButton.java src/app/ProjectorWindow.java src/app/LiveSegment.java src/app/SegmentManager.java src/app/Calibration.java src/app/TrackedMarker
+src/app/TrackedMarker.java src/app/Triangle.java src/app/TriangleManager.java src/app/AppState.java src/app/StaticSegment.java
+
+Run CML:
+java -cp "bin;lib/*;C:/Program Files/Processing/app/resources/core/library/core-4.4.6.jar;C:/Users/tecfa/OneDrive/Documents/Processing/Documents/Processing/libraries/opencv_processing/library/*;C:/Users/tecfa/OneDrive/Documents/Processing/libraries/video/library/*" app.Main

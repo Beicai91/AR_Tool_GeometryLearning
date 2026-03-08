@@ -1,0 +1,15 @@
+{
+    "java.project.sourcePaths": [
+        "src"
+    ],
+    "java.project.referencedLibraries": [
+        "c:\\Program Files\\Processing\\app\\resources\\core\\library\\core-4.4.6.jar",
+        "c:\\Users\\tecfa\\OneDrive\\Documents\\Processing\\libraries\\video\\library\\*",
+        "C:\\Users\\tecfa\\OneDrive\\Documents\\Processing\\libraries\\opencv_processing\\library\\*",
+        "lib/*"
+    ],
+    "java.configuration.runtimes": [
+        { "name": "JavaSE-17", "path": "C:\\Program Files\\Java\\jdk-17" }
+    ],
+    "java.jdt.ls.java.home": "C:\\Program Files\\Java\\jdk-17"
+}
