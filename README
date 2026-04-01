@@ -1,14 +1,16 @@
-This is a prototype application developed as part of a master’s thesis (MALTT) that explores the use of marker-based augmented reality for interactive geometry construction.
+## AR_Tool_GeometryLearning
 
-The system maps physically manipulated markers to geometric point and updates geometric constructions (segment, 2D figures) in real time based on user actions. The project focuses on robust marker detection, real-time interaction and geometric computation within an educational context. 
+This is a prototype application developed as part of a master’s thesis (MALTT: Master of Learning and Teaching Technologies) that explores the use of marker-based augmented reality for interactive geometry construction.
 
-Dev features:
-Marker-based detection and tracking: Reliable detection of QR-assisted tangible markers under variable lighting conditions
-Tangible input mapped to geometric point entities: physical markers are mapped to point entities used in geometric computation
-Real-time geometric construction following marker movement: geometric segments and figures are dynamically updated as markers are manipulated
-Real-time interaction feedback: geometric actions are validated at runtime, producing distinct visual outcomes for valid and invalid segment prolongation
-Conditional visualisation of invisible geometric entities: projection of underlying geometric line for segment prolongation triggered by hint button
-Phase-based interaction flow: exploration mode followed by task-oriented mode
+The system maps physically manipulated markers to abstract geometric point and updates geometric constructions (segment, 2D figures) in real time based on user actions. The project focuses on **robust marker detection**, **real-time interaction** and **geometric computation** within an educational context. 
+
+### Dev features:
+- Marker-based detection and tracking: Reliable detection of QR-assisted tangible markers under variable lighting conditions
+- Tangible input mapped to geometric point entities: physical markers are mapped to point entities used in geometric computation
+- Real-time geometric construction following marker movement: geometric segments and figures are dynamically updated as markers are manipulated
+- Real-time interaction feedback: geometric actions are validated at runtime, producing distinct visual outcomes for valid and invalid segment prolongation
+- Conditional visualisation of invisible geometric entities: projection of underlying geometric line for segment prolongation triggered by hint button
+- Phase-based interaction flow: exploration mode followed by task-oriented mode
 
 Technical notes:
 Robust marker detection was a central challenge due to the limitation of HP Sprout’s hardware, environmental noises (light, hand movements etc.) and projected graphics. 
