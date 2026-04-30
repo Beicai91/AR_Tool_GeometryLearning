@@ -35,6 +35,8 @@ Tracked markers are only removed after being absent for several consecutive fram
 This separation allows the system to remain responsive while maintaining stable interaction behaviour under noisy input conditions.
 
 ## Demo
+The following demos show two basic functionalities of the system: marker detection and real-time tracking and projection. 
+
 ![Demo-ezgif com-resize(1)](https://github.com/user-attachments/assets/245d9a3f-c596-4147-a0dd-7cdb809cc749)
 
 ![Demo-ezgif com-resize(2)](https://github.com/user-attachments/assets/c835e898-5a19-430c-a645-10122a3c645b)
