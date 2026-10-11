@@ -1,6 +1,6 @@
 # AR_Tool_GeometryLearning
 
-This is a prototype application developed as part of a master’s thesis (**MALTT**: Master of Learning and Teaching Technologies) that explores the use of marker-based augmented reality for interactive geometry construction.
+This is a prototype application developed as part of master MALTT thesis ([**MALTT**: Master of Learning and Teaching Technologies](https://maltt.unige.ch/)) that explores the use of marker-based augmented reality for interactive geometry construction. ([Link to thesis](https://tecfa.unige.ch/tecfa/maltt/memoire/Cai2026.pdf))
 The system maps physically manipulated markers to abstract geometric point and updates geometric constructions (segment, 2D figures) **in real time based on user actions**. The project focuses on **robust marker detection**, **real-time interaction** and **geometric computation** within an educational context. 
 
 ## Machine
