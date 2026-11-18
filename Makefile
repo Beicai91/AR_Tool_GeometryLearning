@@ -30,7 +30,8 @@ SRC := src/app/Main.java \
 	   src/app/LiveSegment.java \
 	   src/app/Marker.java \
 	   src/app/MarkerButton.java \
-	   src/app/MarkerManager.java \
+	   src/app/MarkerDetector.java \
+	   src/app/MarkerTracker.java \
 	   src/app/ProjectorWindow.java \
 	   src/app/SegmentManager.java \
 	   src/app/StaticSegment.java \

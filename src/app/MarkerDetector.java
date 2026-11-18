@@ -21,13 +21,11 @@ import com.google.zxing.multi.qrcode.QRCodeMultiReader;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 
-public class MarkerManager {
+public class MarkerDetector {
     private final PApplet p;
     private PImage frame;
     private int w;
     private int h;
-    private ArrayList<TrackedMarker> markerStorage;
-    private static final int LOSS_TOLERANCE = 20;
     private final QRCodeMultiReader multiReader = new QRCodeMultiReader();
     private final Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
 
@@ -69,7 +67,7 @@ public class MarkerManager {
     static final int YELLOW = 4;
     static final int ORANGE = 5;
 
-    public MarkerManager(PApplet parent) {
+    public MarkerDetector(PApplet parent) {
         this.p = parent;
         hints.put(DecodeHintType.POSSIBLE_FORMATS, Collections.singletonList(BarcodeFormat.QR_CODE));
         hints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
@@ -164,46 +162,6 @@ public class MarkerManager {
         return -1;
     }
 
-    public TrackedMarker findMarkerById(int id) {
-        for (TrackedMarker m: this.markerStorage) {
-            if (m.id == id)
-                return (m);
-        }
-        return (null);
-    }
-
-    public void updateTrackedMarkers(ArrayList<Marker> rawMarkers, ArrayList<TrackedMarker> trackedMarkers) {
-        HashMap<Integer, TrackedMarker> tracked = new HashMap<>();
-        for (TrackedMarker tm: trackedMarkers) {
-            tracked.put(tm.id, tm);
-        }
-
-        HashSet<Integer> rawIds = new HashSet<>();
-        for (Marker rm: rawMarkers) {
-            rawIds.add(rm.id);
-            TrackedMarker tm = tracked.get(rm.id);
-            if (tm == null) {
-                tm = new TrackedMarker(rm.pos, rm.color, rm.id);
-                tracked.put(rm.id, tm);
-                trackedMarkers.add(tm);
-            } else {
-                tm.markSeen(rm.pos); 
-            }
-        }
-
-        Iterator<TrackedMarker> iter = trackedMarkers.iterator();
-        while (iter.hasNext()) {
-            TrackedMarker tm = iter.next();
-            if (!rawIds.contains(tm.id)) {
-                int missedFrames = tm.getMissedFrames();
-                if (missedFrames > MarkerManager.LOSS_TOLERANCE)
-                    iter.remove();
-                else
-                    tm.markMissing();
-            }
-        }
-        this.markerStorage = trackedMarkers;
-    }
 
     //==================================================================================//
     //`detectMarker`: aruco markers                                                 //                   

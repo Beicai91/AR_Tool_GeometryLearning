@@ -14,7 +14,8 @@ public class Main extends PApplet {
     private PImage frame;
     private final int width = 1280, height = 720;
     private final int CAM_INDEX = 0;
-    private MarkerManager markerManager;
+    private MarkerDetector markerDetector;
+    private MarkerTracker markerTracker;
     private ArrayList<Marker> rawMarkers = new ArrayList<>();
     private final float markerMoveThreshold = 1.0f;
     private Calibration calibration;
@@ -70,7 +71,7 @@ public class Main extends PApplet {
         int frameH = (int) this.cam.getCamera().get(Videoio.CAP_PROP_FRAME_HEIGHT);
 
         this.frame = createImage(frameW, frameH, RGB);
-        this.markerManager = new MarkerManager(this);
+        this.markerDetector = new MarkerDetector(this);
         this.projector = new ProjectorWindow();
         this.utilsUI = new UtilsUI(this);
         this.segManager = new SegmentManager(markerMoveThreshold);
@@ -143,11 +144,11 @@ public class Main extends PApplet {
             this.utilsUI.drawRectZone(255, 0, 0, this.width, this.height);
             this.utilsUI.renderInstruction(this.utilsUI.getSlideOneInstruction());
             if (frameCount % 2 == 0)
-                this.rawMarkers = this.markerManager.detectZXingMarkers(this.frame);
-            this.markerManager.updateTrackedMarkers(this.rawMarkers, this.trackedMarkers);
+                this.rawMarkers = this.markerDetector.detectZXingMarkers(this.frame);
+            this.markerTracker.updateTrackedMarkers(this.rawMarkers, this.trackedMarkers);
             this.utilsUI.setMarkerBtns(this.trackedMarkers, this.markerBtns, 80, 60);
             this.utilsUI.setSegOpeBtnStatus(); 
-            this.segManager.updateLiveSegments(this.trackedMarkers, this.markerManager);
+            this.segManager.updateLiveSegments(this.trackedMarkers, this.markerTracker);
             this.projector.setConnections(this.segManager.getLiveSegs());
             ArrayList<Triangle> triangles = this.segManager.findTriangles(this.trackedMarkers);
             this.projector.setTriangles(triangles);
@@ -162,11 +163,11 @@ public class Main extends PApplet {
             this.utilsUI.drawRectZone(255, 0, 0, this.width, this.height);
             this.utilsUI.renderInstruction(this.utilsUI.getSlideTwoInstruction());
             if (frameCount % 2 == 0)
-                this.rawMarkers = this.markerManager.detectZXingMarkers(this.frame);
-            this.markerManager.updateTrackedMarkers(this.rawMarkers, this.trackedMarkers);
+                this.rawMarkers = this.markerDetector.detectZXingMarkers(this.frame);
+            this.markerTracker.updateTrackedMarkers(this.rawMarkers, this.trackedMarkers);
             this.utilsUI.setMarkerBtns(this.trackedMarkers, this.markerBtns, 80, 60);
             this.utilsUI.setSegOpeBtnStatus();
-            this.segManager.updateLiveSegments(this.trackedMarkers, this.markerManager);
+            this.segManager.updateLiveSegments(this.trackedMarkers, this.markerTracker);
             this.projector.setConnections(this.segManager.getLiveSegs());
             ArrayList<Triangle> triangles = this.segManager.findTriangles(this.trackedMarkers);
             this.projector.setTriangles(triangles);
@@ -191,18 +192,18 @@ public class Main extends PApplet {
                 this.endProlongBtn.setVisible(false);
             }
             if (frameCount % 2 == 0)
-                this.rawMarkers = this.markerManager.detectZXingMarkers(this.frame);
-            this.markerManager.updateTrackedMarkers(this.rawMarkers, this.trackedMarkers);
+                this.rawMarkers = this.markerDetector.detectZXingMarkers(this.frame);
+            this.markerTracker.updateTrackedMarkers(this.rawMarkers, this.trackedMarkers);
             this.utilsUI.setMarkerBtns(this.trackedMarkers, this.markerBtns, 80, 60);
             this.utilsUI.setSegOpeBtnStatus();
             if (!this.prolongBtnClicked) {
-                this.segManager.updateLiveSegments(this.trackedMarkers, this.markerManager);
+                this.segManager.updateLiveSegments(this.trackedMarkers, this.markerTracker);
                 this.projector.setConnections(this.segManager.getLiveSegs());
                 return;
             }
             if (this.selected.size() == 2) {
-                TrackedMarker tm1 = this.markerManager.findMarkerById(selected.get(0).marker.id);
-                TrackedMarker tm2 = this.markerManager.findMarkerById(selected.get(1).marker.id);
+                TrackedMarker tm1 = this.markerTracker.findMarkerById(selected.get(0).marker.id);
+                TrackedMarker tm2 = this.markerTracker.findMarkerById(selected.get(1).marker.id);
                 if (tm1 != null && tm2 != null) {
                     this.candidateProlongation = new StaticSegment(tm1.pos, tm2.pos);
                     if (this.candidateProlongation.onSameLineWith(this.baseSeg) && this.candidateProlongation.isLongerThan(this.baseSeg))
@@ -219,20 +220,20 @@ public class Main extends PApplet {
             this.utilsUI.drawRectZone(255, 0, 0, this.width, this.height);
             this.utilsUI.renderInstruction(this.utilsUI.getSlideFourInstruction());
             if (frameCount % 2 == 0)
-                this.rawMarkers = this.markerManager.detectZXingMarkers(this.frame);
-            this.markerManager.updateTrackedMarkers(this.rawMarkers, this.trackedMarkers);
+                this.rawMarkers = this.markerDetector.detectZXingMarkers(this.frame);
+            this.markerTracker.updateTrackedMarkers(this.rawMarkers, this.trackedMarkers);
             this.utilsUI.setMarkerBtns(this.trackedMarkers, this.markerBtns, 80, 60);
             this.utilsUI.setSegOpeBtnStatus();
             if (!this.prolongBtnClicked) {
-                this.segManager.updateLiveSegments(this.trackedMarkers, this.markerManager);
+                this.segManager.updateLiveSegments(this.trackedMarkers, this.markerTracker);
                 this.projector.setConnections(this.segManager.getLiveSegs());
                 ArrayList<Triangle> triangles = this.segManager.findTriangles(this.trackedMarkers);
                 this.projector.setTriangles(triangles);
                 return;
             }
             if (this.selected.size() == 2) {
-                TrackedMarker tm1 = this.markerManager.findMarkerById(selected.get(0).marker.id);
-                TrackedMarker tm2 = this.markerManager.findMarkerById(selected.get(1).marker.id);
+                TrackedMarker tm1 = this.markerTracker.findMarkerById(selected.get(0).marker.id);
+                TrackedMarker tm2 = this.markerTracker.findMarkerById(selected.get(1).marker.id);
                 if (tm1 != null && tm2 != null) {
                     this.candidateProlongation = new StaticSegment(tm1.pos, tm2.pos);
                     if (this.candidateProlongation.onSameLineWith(this.baseSeg) && this.candidateProlongation.isLongerThan(this.baseSeg))

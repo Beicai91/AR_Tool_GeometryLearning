@@ -15,7 +15,7 @@ public class SegmentManager {
         this.moveThreshold = moveThreshold;
     }
 
-    public void updateLiveSegments(ArrayList<TrackedMarker> markers, MarkerManager markerManager) {
+    public void updateLiveSegments(ArrayList<TrackedMarker> markers, MarkerTracker markerTracker) {
 
         HashSet<Integer> curIds = new HashSet<>();
         for (Marker m: markers) 
@@ -31,8 +31,8 @@ public class SegmentManager {
                 //continue;
             //}
 
-            TrackedMarker updated1 = markerManager.findMarkerById(liveSeg.getMarker1().id);
-            TrackedMarker updated2 = markerManager.findMarkerById(liveSeg.getMarker2().id);
+            TrackedMarker updated1 = markerTracker.findMarkerById(liveSeg.getMarker1().id);
+            TrackedMarker updated2 = markerTracker.findMarkerById(liveSeg.getMarker2().id);
             if (updated1 != null && updated2 != null) {
                 //Every frame markers are newly created, always refresh marker references used by lines
                 liveSeg.setMarker1(new TrackedMarker(updated1.pos, updated1.color, updated1.id));
